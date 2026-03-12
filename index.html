@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mark's AI Class – Week 2</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="description" content="Mark's AI Class 2주차 — Google Flow로 다양한 이미지를 만들고 QR코드 아트로 스마트 안내 시스템을 완성합니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mark's AI Class — Google Flow 실전 이미지 제작 & AI QR코드 아트">
+<meta property="og:description" content="Mark's AI Class 2주차 — Google Flow로 다양한 이미지를 만들고 QR코드 아트로 스마트 안내 시스템을 완성합니다.">
+<meta property="og:url" content="https://strong88ai.github.io/Mark_class_02/">
+<meta property="og:image" content="https://strong88ai.github.io/Mark_class_02/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Mark's AI Class">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Google Flow 실전 이미지 제작 & AI QR코드 아트">
+<meta name="twitter:description" content="Mark's AI Class 2주차 — Flow로 다양한 이미지를 만들고 QR코드 아트로 스마트 안내 시스템을 완성합니다.">
+<meta name="twitter:image" content="https://strong88ai.github.io/Mark_class_02/og-image.png">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+:root{--ink:#0F172A;--ink-2:#1E293B;--ink-m:#475569;--ink-f:#64748B;--surf:#FFF;--surf-a:#F8FAFC;--surf-t:#ECFDF5;--bdr:#CBD5E1;--bdr-s:#94A3B8;--t9:#0C3E3E;--t7:#0D5F5F;--t6:#0F766E;--t5:#14B8A6;--t1:#CCFBF1;--t0:#F0FDFA;--a6:#B45309;--a1:#FEF3C7;--a0:#FFFBEB;--b6:#1D4ED8;--b0:#EFF6FF;--r:14px;--rs:10px;--s1:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06);--s2:0 4px 8px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.04)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);background:var(--surf);line-height:1.8;font-size:20px;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+
+.hero{background:var(--t9);padding:80px 32px 64px;text-align:center}
+.hero h1{font-size:clamp(32px,5.5vw,48px);font-weight:800;color:#fff;line-height:1.3;letter-spacing:-.025em;margin-bottom:16px}
+.hero .sub{font-size:22px;font-weight:500;color:var(--t5);margin-bottom:32px}
+.hero-meta{display:inline-flex;gap:28px;font-size:17px;color:rgba(255,255,255,.7);font-weight:600}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr)}
+.nav-inner{max-width:960px;margin:0 auto;padding:0 40px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-item{padding:16px 22px;font-size:17px;font-weight:600;color:var(--ink-m);cursor:pointer;border:none;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;background:none;font-family:inherit}
+.nav-item:hover{color:var(--ink)}
+.nav-item.active{color:var(--t6);border-bottom-color:var(--t6)}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 40px}
+.section{padding:64px 0 48px}
+.section+.section{border-top:1px solid var(--bdr)}
+
+.overline{font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--t6);margin-bottom:8px}
+.section-title{font-size:clamp(28px,4.5vw,36px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.3;margin-bottom:8px}
+.section-desc{font-size:19px;color:var(--ink-m);margin-bottom:40px;line-height:1.75;max-width:700px}
+h3.sh{font-size:22px;font-weight:700;color:var(--ink);margin:44px 0 20px;letter-spacing:-.01em}
+
+.cbox{background:var(--surf-t);border:1.5px solid var(--t1);border-radius:var(--r);padding:32px 36px;margin-bottom:28px}
+.cbox .lb{font-size:15px;font-weight:700;color:var(--t6);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+.cbox .mt{font-size:22px;font-weight:700;color:var(--ink);line-height:1.5;margin-bottom:14px}
+.cbox .dt{font-size:18px;color:var(--ink-2);line-height:1.75;padding-left:2px}
+
+.flow{display:flex;align-items:stretch;gap:0;margin:28px 0;overflow-x:auto;background:var(--surf-a);border-radius:var(--r);border:1.5px solid var(--bdr)}
+.flow-i{flex:1;min-width:170px;text-align:center;padding:24px 16px;position:relative}
+.flow-i:not(:last-child)::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:12px solid var(--bdr-s);z-index:1}
+.flow-n{width:40px;height:40px;border-radius:50%;background:var(--t6);color:#fff;font-size:18px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
+.flow-l{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.flow-d{font-size:14px;color:var(--ink-m);line-height:1.5}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:var(--r);overflow:hidden;border:1.5px solid var(--bdr);margin:28px 0}
+.sp-s{padding:32px 28px}
+.sp-s.l{background:var(--surf-a);border-right:1.5px solid var(--bdr)}
+.sp-s.r{background:var(--surf-t)}
+.sp-tag{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;padding:4px 14px;border-radius:6px;display:inline-block}
+.sp-s.l .sp-tag{background:var(--bdr-s);color:var(--ink-2)}
+.sp-s.r .sp-tag{background:var(--t6);color:#fff}
+.sp-s h4{font-size:20px;font-weight:700;margin-bottom:10px}
+.sp-s p{font-size:17px;color:var(--ink-2);line-height:1.75}
+.sp-s.r h4{color:var(--t7)}
+
+.g4{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.gc{border:1.5px solid var(--bdr);border-radius:var(--rs);padding:22px 24px;background:var(--surf)}
+.gc .gl{font-size:14px;font-weight:700;color:var(--t6);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.gc .gt{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.gc .gd{font-size:16px;color:var(--ink-m);line-height:1.5}
+
+.cb{background:#1E293B;border-radius:var(--rs);padding:24px 28px;margin:14px 0 24px;position:relative;border:1.5px solid #334155}
+.cb .cl{font-size:14px;font-weight:700;color:var(--t5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.cb pre{font-family:'Pretendard Variable',sans-serif;font-size:17px;color:#F1F5F9;line-height:1.85;white-space:pre-wrap;word-break:keep-all;max-height:3.2em;overflow:hidden;transition:max-height .3s ease}
+.cb.expanded pre{max-height:none}
+.cb .cp{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);padding:7px 18px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
+.cb .cp:hover{background:rgba(255,255,255,.2);color:#fff}
+.cb .cp.copied{background:var(--t6);color:#fff;border-color:var(--t6)}
+.cb .ct{display:block;width:100%;padding:8px;background:#283548;border:none;color:var(--t5);font-size:14px;font-weight:600;cursor:pointer;text-align:center;border-top:1px solid #334155;margin-top:8px;border-radius:0 0 8px 8px}
+.cb .ct:hover{background:#334155}
+
+.steps{margin:28px 0}
+.si{display:grid;grid-template-columns:52px 1fr;gap:20px;padding-bottom:32px;position:relative}
+.si:not(:last-child)::before{content:'';position:absolute;left:25px;top:52px;bottom:0;width:2px;background:var(--bdr)}
+.sb{width:52px;height:52px;border-radius:14px;background:var(--t6);color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.sc h4{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.sc p{font-size:17px;color:var(--ink-m);line-height:1.7}
+.sc a{color:var(--t6);text-decoration:none;font-weight:600}
+.sc a:hover{text-decoration:underline}
+
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0}
+.dt{width:100%;border-collapse:collapse;font-size:17px;margin:20px 0;border:1.5px solid var(--bdr);border-radius:var(--rs);overflow:hidden}
+.dt thead th{background:var(--t9);color:#fff;padding:14px 24px;text-align:left;font-weight:700;font-size:16px;text-transform:uppercase;letter-spacing:.04em}
+.dt td{padding:14px 24px;border-bottom:1px solid var(--bdr);color:var(--ink-2)}
+.dt tr:nth-child(even){background:var(--surf-a)}
+.dt td:first-child{font-weight:700;color:var(--ink)}
+
+.co{display:grid;grid-template-columns:5px 1fr;gap:18px;padding:20px 0 20px 24px;margin:20px 0;border-radius:var(--rs);font-size:17px;line-height:1.75}
+.co-b{border-radius:3px}
+.co.w{background:var(--a0)}.co.w .co-b{background:var(--a6)}.co.w .co-t{color:#78350F}
+.co.i{background:var(--b0)}.co.i .co-b{background:var(--b6)}.co.i .co-t{color:#1E3A8A}
+.co.t{background:var(--t0)}.co.t .co-b{background:var(--t6)}.co.t .co-t{color:var(--t7)}
+.co strong{font-weight:700}
+
+.brk{text-align:center;padding:48px 0;border-top:1.5px solid var(--bdr);border-bottom:1.5px solid var(--bdr);background:var(--surf-a)}
+.brk span{display:inline-block;background:var(--t9);color:#fff;padding:14px 40px;border-radius:100px;font-size:19px;font-weight:700}
+
+.mi{background:var(--t9);border-radius:var(--r);padding:36px;color:#fff;margin-bottom:20px}
+.mi h3{font-size:22px;font-weight:800;margin-bottom:10px}
+.mi>p{font-size:18px;color:rgba(255,255,255,.85);line-height:1.75}
+.mh{margin-top:20px;padding:20px 24px;background:rgba(255,255,255,.1);border-radius:var(--rs);border:1px solid rgba(255,255,255,.12)}
+.mh strong{color:var(--t5);font-size:17px}
+.mh p{font-size:17px;margin-top:8px;color:rgba(255,255,255,.85);line-height:1.75}
+
+.source{font-size:14px;color:var(--ink-f);margin-top:-18px;margin-bottom:28px}
+.source a{color:var(--t6);text-decoration:none}.source a:hover{text-decoration:underline}
+.footer{text-align:center;padding:56px 40px;background:var(--t9);color:rgba(255,255,255,.5);font-size:17px}
+.footer .hl{color:var(--t5);font-weight:700;font-size:20px}
+
+.prompt-title{font-size:20px;font-weight:700;color:var(--ink);margin:44px 0 16px;padding-bottom:8px;border-bottom:2px solid var(--t1)}
+
+@media(max-width:768px){
+  body{font-size:17px;line-height:1.75}
+  .hero{padding:48px 20px 40px}.hero h1{font-size:28px}.hero .sub{font-size:17px;margin-bottom:20px}.hero-meta{font-size:14px;gap:16px;flex-wrap:wrap;justify-content:center}
+  .nav-inner{padding:0 16px}.nav-item{padding:12px 14px;font-size:15px}
+  .wrap{padding:0 20px}.section{padding:40px 0 32px}
+  .overline{font-size:13px}.section-title{font-size:24px}.section-desc{font-size:16px;margin-bottom:28px}
+  h3.sh{font-size:19px;margin:32px 0 14px}
+  .cbox{padding:22px 20px}.cbox .mt{font-size:18px}.cbox .dt{font-size:16px}
+  .flow{flex-direction:column}.flow-i{min-width:auto;padding:16px 20px;text-align:left;display:flex;align-items:center;gap:16px}.flow-i:not(:last-child)::after{display:none}.flow-i:not(:last-child){border-bottom:1px solid var(--bdr)}.flow-n{margin-bottom:0;min-width:40px}
+  .split{grid-template-columns:1fr}.sp-s.l{border-right:none;border-bottom:1.5px solid var(--bdr)}.sp-s{padding:24px 20px}
+  .g4{grid-template-columns:1fr !important;gap:10px}.gc{padding:16px 18px}
+  .cb{padding:18px 20px}.cb pre{font-size:15px;line-height:1.75}.cb .cp{padding:6px 14px;font-size:13px}
+  .si{grid-template-columns:44px 1fr;gap:14px;padding-bottom:24px}.si:not(:last-child)::before{left:21px}.sb{width:44px;height:44px;font-size:17px;border-radius:12px}.sc h4{font-size:17px}.sc p{font-size:15px}
+  .dt{font-size:15px}.dt thead th{padding:10px 14px;font-size:13px}.dt td{padding:10px 14px}
+  .co{font-size:15px;padding:16px 0 16px 18px;gap:14px}
+  .brk{padding:32px 0}.brk span{font-size:16px;padding:12px 28px}
+  .mi{padding:24px 20px}.mi h3{font-size:19px}.mi>p{font-size:16px}.mh{padding:16px 18px}.mh strong{font-size:15px}.mh p{font-size:15px}
+  .source{font-size:13px}.footer{padding:40px 20px}.footer .hl{font-size:17px}
+}
+@media(max-width:580px){svg{max-width:100%;height:auto}.split{grid-template-columns:1fr}}
+.table-wrap .dt{margin:0;min-width:500px}
+@media print{.nav{display:none}.cp{display:none}.hero{padding:40px 32px}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+<div style="max-width:700px;margin:0 auto">
+<p style="font-size:15px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-bottom:20px">Mark's AI Class</p>
+<h1>Google Flow로 실전 이미지 제작 &amp;<br>AI QR코드 아트 스마트 안내 시스템</h1>
+<p class="sub">맞춤 프롬프트부터 스마트 안내 포스터까지, 2시간 완성 실습 과정</p>
+<div class="hero-meta"><span>총 2시간</span><span>실습 2회 포함</span><span>초보자 대상</span></div>
+</div>
+</header>
+
+<nav class="nav"><div class="nav-inner">
+<button class="nav-item active" onclick="go('obj')">학습 목표</button>
+<button class="nav-item" onclick="go('p1')">1부 이미지 생성</button>
+<button class="nav-item" onclick="go('pr1')">실습 1</button>
+<button class="nav-item" onclick="go('p2')">2부 QR아트</button>
+<button class="nav-item" onclick="go('pr2')">실습 2</button>
+<button class="nav-item" onclick="go('ms')">적용 미션</button>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ═══ 학습 목표 ═══ -->
+<section class="section" id="obj">
+<p class="overline">Learning Objectives</p>
+<h2 class="section-title">학습 목표</h2>
+<p class="section-desc">이 수업을 마치면 다음을 직접 수행할 수 있습니다.</p>
+<div class="flow">
+<div class="flow-i"><div class="flow-n">1</div><div style="flex:1"><div class="flow-l">Flow 이미지 생성</div><div class="flow-d">Google Flow에서 한 번에<br>4장의 이미지를 만든다</div></div></div>
+<div class="flow-i"><div class="flow-n">2</div><div style="flex:1"><div class="flow-l">프롬프트 구조 이해</div><div class="flow-d">5요소 구조로 원하는<br>이미지를 정확히 요청한다</div></div></div>
+<div class="flow-i"><div class="flow-n">3</div><div style="flex:1"><div class="flow-l">QR코드 아트 제작</div><div class="flow-d">브랜드 감성이 담긴<br>QR코드를 직접 만든다</div></div></div>
+<div class="flow-i"><div class="flow-n">4</div><div style="flex:1"><div class="flow-l">스마트 안내 시스템</div><div class="flow-d">이미지 + QR코드로<br>안내 포스터를 완성한다</div></div></div>
+</div>
+</section>
+
+<!-- ═══ 1부 ═══ -->
+<section class="section" id="p1">
+<p class="overline">Part 1 &mdash; 50분+</p>
+<h2 class="section-title">Google Flow로 실전 이미지 제작</h2>
+<p class="section-desc">한 번에 4장, 무제한 무료, 하나의 프롬프트로 어디서든 활용할 수 있습니다.</p>
+
+<div class="cbox"><div class="lb">Core Concept</div><div class="mt">Google Flow = 이미지 생성 + 편집 + 영상까지 하나로 통합된 AI 창작 스튜디오</div><div class="dt">한번 프롬프트를 입력하면 4장이 동시에 생성됩니다. 이미지 생성은 크레딧을 소모하지 않아 무제한 무료입니다.</div></div>
+<p class="source">참고: <a href="https://labs.google/flow" target="_blank">labs.google/flow</a> (Google Flow 공식)</p>
+
+<div class="co t"><div class="co-b"></div><div class="co-t"><strong>예시</strong> 미술 도구함을 생각해보세요. 예전에는 물감 가게, 붓 가게, 도화지 가게를 따로 돌아다녀야 했는데,<br>이제 Flow 하나에 물감(이미지 생성), 붓(편집), 도화지(영상)가 다 들어있는 겁니다.</div></div>
+
+<!-- SVG: Flow vs ChatGPT vs Gemini 비교 -->
+<h3 class="sh">도구별 이미지 생성 비교</h3>
+<svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="margin:8px 0 28px">
+  <rect width="800" height="180" rx="12" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <rect x="24" y="20" width="230" height="140" rx="10" fill="#ECFDF5" stroke="#CCFBF1" stroke-width="1.5"/>
+  <text x="139" y="52" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="15" font-weight="700" fill="#0F766E">Google Flow</text>
+  <text x="139" y="88" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="32" font-weight="800" fill="#0C3E3E">4장</text>
+  <text x="139" y="114" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="14" fill="#475569">한 번에 동시 생성</text>
+  <text x="139" y="140" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="14" font-weight="700" fill="#0F766E">무제한 무료</text>
+  <rect x="285" y="20" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="400" y="52" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="15" font-weight="700" fill="#475569">ChatGPT</text>
+  <text x="400" y="88" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="32" font-weight="800" fill="#1E293B">1장</text>
+  <text x="400" y="114" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="14" fill="#475569">한 번에 1장 생성</text>
+  <text x="400" y="140" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="14" fill="#94A3B8">무료 2~3장/일</text>
+  <rect x="546" y="20" width="230" height="140" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="661" y="52" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="15" font-weight="700" fill="#475569">Gemini</text>
+  <text x="661" y="88" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="32" font-weight="800" fill="#1E293B">1~2장</text>
+  <text x="661" y="114" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="14" fill="#475569">한 번에 1~2장 생성</text>
+  <text x="661" y="140" text-anchor="middle" font-family="Pretendard,sans-serif" font-size="14" fill="#94A3B8">무료 사용 가능</text>
+</svg>
+
+<!-- 5요소 -->
+<h3 class="sh">프롬프트 구조 5요소</h3>
+<p style="font-size:18px;color:var(--ink-2);margin-bottom:16px">AI에게 이미지를 요청하는 글(프롬프트)에 이 5가지를 구체적으로 적을수록 원하는 결과에 가까워집니다.</p>
+<div class="table-wrap"><table class="dt">
+<thead><tr><th>요소</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td>대상</td><td>누가/무엇이 나오는지</td><td>20대 한국 여성</td></tr>
+<tr><td>스타일</td><td>어떤 그림체/촬영 방식인지</td><td>클레이 애니메이션 스타일</td></tr>
+<tr><td>배경</td><td>어디에서, 어떤 공간인지</td><td>뉴욕 타임스퀘어 한복판</td></tr>
+<tr><td>분위기</td><td>전체적인 감정/톤</td><td>따뜻하고 아늑한 느낌</td></tr>
+<tr><td>기술 지정</td><td>카메라, 해상도, 특수 지시</td><td>소니 A7IV, 85mm 렌즈, 글자 없이</td></tr>
+</tbody></table></div>
+
+<div class="co t"><div class="co-b"></div><div class="co-t"><strong>예시</strong> 프롬프트는 "AI에게 보내는 촬영 콘티"입니다. 영화 감독이 촬영 전에 "이 배우가, 이 장소에서, 이런 조명으로,<br>이런 분위기로 찍어주세요"라고 적어두잖아요? 프롬프트도 똑같습니다.</div></div>
+
+<!-- 실사 3대 요소 -->
+<h3 class="sh">실사 프롬프트 3대 요소</h3>
+<div class="table-wrap"><table class="dt">
+<thead><tr><th>요소</th><th>효과</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td>카메라 기종</td><td>해당 카메라의 센서 특성, 색감을 AI가 모방</td><td>소니 A7IV, 하셀블라드 X2D</td></tr>
+<tr><td>조명 묘사</td><td>빛의 방향과 강도로 입체감이 달라짐</td><td>렘브란트 조명, 골든아워 역광</td></tr>
+<tr><td>색온도 대비</td><td>따뜻한 빛 vs 차가운 빛 충돌이 드라마틱</td><td>따뜻한 호박빛 vs 차가운 블루아워</td></tr>
+</tbody></table></div>
+
+<!-- 범용성 -->
+<h3 class="sh">프롬프트 범용성 — 한 번 배우면 어디서든</h3>
+<div class="split">
+<div class="sp-s l"><span class="sp-tag">기존 방식</span><h4>도구마다 따로 배워야 했음</h4><p>ChatGPT 프롬프트 따로, 미드저니 따로, Gemini 따로... 도구가 바뀌면 처음부터 다시</p></div>
+<div class="sp-s r"><span class="sp-tag">오늘 이후</span><h4>하나의 프롬프트로 어디서든</h4><p>오늘 배우는 프롬프트 구조는 Flow, Gemini, ChatGPT<br>어디서든 똑같이 작동합니다</p></div>
+</div>
+
+<!-- Flow 접속 경로 -->
+<h3 class="sh">Flow 접속 경로</h3>
+<div class="flow">
+<div class="flow-i"><div class="flow-n">1</div><div style="flex:1"><div class="flow-l">크롬 브라우저</div></div></div>
+<div class="flow-i"><div class="flow-n">2</div><div style="flex:1"><div class="flow-l"><a href="https://labs.google/flow" target="_blank">labs.google/flow</a></div></div></div>
+<div class="flow-i"><div class="flow-n">3</div><div style="flex:1"><div class="flow-l">구글 로그인</div></div></div>
+<div class="flow-i"><div class="flow-n">4</div><div style="flex:1"><div class="flow-l">이미지 만들기</div></div></div>
+</div>
+
+<div class="co w"><div class="co-b"></div><div class="co-t"><strong>참고</strong> Flow 사용에는 Google AI Pro 구독이 필요합니다. 이미지 생성은 크레딧을 소모하지 않아 무제한 무료로 사용 가능합니다.</div></div>
+
+<!-- ═══ 프롬프트 모음 ═══ -->
+<div class="prompt-title">실습 1 — 다양한 캐릭터 이미지 (6개)</div>
+<div class="cb"><div class="cl">1-1. 클레이 애니메이션 강아지 마스코트</div><button class="cp" onclick="cc(this)">복사</button><pre>A tiny shiba inu mascot made of soft clay, claymation style, wearing a miniature blue apron, sitting on a flour-dusted wooden kitchen table, warm golden hour lighting from a nearby window, shallow depth of field, the clay has visible fingerprint textures, cozy bakery background slightly blurred, adorable round eyes looking at the camera</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">1-2. 지브리풍 직장인 캐릭터</div><button class="cp" onclick="cc(this)">복사</button><pre>A young Korean man in a crisp white shirt and loosened navy tie, Ghibli anime style, walking through a sunlit city street holding an iced coffee, cherry blossom petals floating in the air, soft watercolor sky with warm pink and orange sunset gradient, gentle breeze blowing his hair, dreamy and nostalgic atmosphere, detailed anime cel shading</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">1-3. 팝업북 스타일 어린이 캐릭터</div><button class="cp" onclick="cc(this)">복사</button><pre>A cheerful Korean girl in a bright yellow raincoat, 3D paper craft pop-up book style, jumping over a puddle with rain boots splashing water droplets, colorful paper-cut flowers and trees in the background, each layer has visible paper texture and subtle shadows between layers, vibrant saturated colors, magical and playful mood, miniature diorama feel</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">1-4. 미니어처 디오라마 할머니</div><button class="cp" onclick="cc(this)">복사</button><pre>A miniature diorama of a cozy living room, a tiny Korean grandmother figurine with silver hair sitting in a soft armchair knitting a scarf, warm lamp light casting golden glow, a small cat figurine sleeping on a cushion nearby, bookshelves with tiny books in the background, tilt-shift photography style, extremely detailed miniature world, warm and heartwarming atmosphere</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">1-5. 홀로그램 AI 로봇 도우미</div><button class="cp" onclick="cc(this)">복사</button><pre>A small cute robot assistant floating slightly above the ground, holographic translucent body glowing with soft cyan and purple light, round screen face displaying a heart emoji, tiny propellers on its back like a hummingbird, particles of light swirling around it, dark futuristic room background with soft neon reflections, cinematic lighting, sci-fi meets kawaii aesthetic</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">1-6. 실사 — 펠트 인형 제품 촬영</div><button class="cp" onclick="cc(this)">복사</button><pre>A handmade felt shiba inu mascot doll wearing a tiny blue apron, placed on a rustic wooden cafe table next to a real ceramic latte cup, shot with Sony A7IV, 85mm f/1.4 lens, ISO 200, natural window light from the left creating soft shadows, shallow depth of field with creamy bokeh in the background showing blurred cafe interior, the felt texture of the doll is hyper-detailed showing individual stitches and fabric fibers, a few breadcrumbs scattered on the table for realism, warm color temperature 5600K, professional product photography for an Etsy shop listing</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+
+<div class="prompt-title">실습 2 — 다양한 상황 연출 이미지 (6개)</div>
+<div class="cb"><div class="cl">2-1. 비 오는 날 감성 카페</div><button class="cp" onclick="cc(this)">복사</button><pre>A rainy afternoon in a small Korean cafe, raindrops streaming down the large window, a steaming cup of latte on a wooden table with latte art visible, warm amber pendant lights reflected in the wet glass, a cozy knit blanket draped over the chair, green monstera plant in the corner, moody cinematic color grading, shot through the rain-covered window from outside, shallow depth of field</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">2-2. 네온 감성 무인 아이스크림 가게</div><button class="cp" onclick="cc(this)">복사</button><pre>A trendy unmanned ice cream shop at night, glowing neon sign reading "ICE" in soft pink above the entrance, pastel-colored ice cream displayed in a curved glass freezer, reflective white tile floor creating mirror-like glow effect, a single digital kiosk with a bright touchscreen, vaporwave color palette of pink purple and mint, no people, cinematic wide angle shot</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">2-3. 아이소메트릭 세미나 교실</div><button class="cp" onclick="cc(this)">복사</button><pre>An isometric 3D illustration of a bright seminar classroom, tiny detailed characters sitting in rows taking notes, a presenter character pointing at a large screen showing colorful charts, miniature laptops and coffee cups on each desk, warm sunlight streaming through windows on the left, soft pastel color palette, game-like diorama feel, every tiny detail carefully crafted, clean white border</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">2-4. 매거진 스타일 배달 포장</div><button class="cp" onclick="cc(this)">복사</button><pre>Overhead flat lay photo of a food delivery packing station, neatly arranged kraft paper boxes with stickers, a tablet showing order screen, fresh green salad bowls and sandwich wraps being packed, small flowers and herbs scattered as decoration, natural daylight from above, food magazine editorial style, muted earth tones with pops of fresh green, extremely appetizing and organized</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">2-5. 골든아워 공유 오피스</div><button class="cp" onclick="cc(this)">복사</button><pre>A woman working on a MacBook in a modern co-working space during golden hour, dramatic warm sunlight streaming through floor-to-ceiling windows casting long shadows, indoor plants silhouetted against the light, concrete walls with warm light reflections, a single coffee cup with steam visible in the backlight, cinematic film grain, shallow depth of field focused on the laptop screen, contemplative and productive mood</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">2-6. 실사 — 프리미엄 무인 디저트 카페</div><button class="cp" onclick="cc(this)">복사</button><pre>Interior photograph of a premium unmanned dessert cafe in Gangnam Seoul, shot with Canon EOS R5, 24mm f/2.8 wide angle lens, ISO 400, a curved glass display case filled with beautifully arranged French macarons and petit fours under warm LED spotlights, a matte black self-service kiosk with a glowing touchscreen on the right, polished concrete floor reflecting the warm pendant lights above, large floor-to-ceiling window showing a rainy Seoul street at dusk with blurred city lights, condensation on the window glass, the entire scene feels like a spread from Kinfolk magazine, moody yet inviting, architectural interior photography style</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+
+<div class="prompt-title">실습 3 — 네컷만화형 안내 이미지 (6개)</div>
+<div class="cb"><div class="cl">3-1. 카와이 스타일 화장실 안내</div><button class="cp" onclick="cc(this)">복사</button><pre>A cute 4-panel comic strip guide to finding the restroom, kawaii chibi character style with big sparkly eyes: Panel 1 - a tiny confused character with a question mark bubble standing at the entrance, Panel 2 - character happily following cute arrow signs shaped like pointing fingers along a hallway, Panel 3 - character turning a corner where a small potted cactus waves hello, Panel 4 - character arriving at the restroom door doing a happy victory dance with sparkle effects. Soft rounded panels with pastel mint borders, warm cream background, adorable and fun</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">3-2. 레트로 픽셀아트 주차장 안내</div><button class="cp" onclick="cc(this)">복사</button><pre>A 4-panel parking guide in charming pixel art retro game style, 16-bit aesthetic: Panel 1 - a pixel car driving through a parking gate with a green arrow, Panel 2 - a hand taking a ticket from a cute machine with blinking lights, Panel 3 - the car perfectly parked between white lines with a star rating appearing above, Panel 4 - a tiny pixel character walking toward an elevator with a happy bounce animation feel. Each panel framed like a game screen, vibrant retro colors, nostalgic arcade game vibe</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">3-3. 수채화 오시는 길 안내</div><button class="cp" onclick="cc(this)">복사</button><pre>A 4-panel watercolor illustration showing directions from the subway: Panel 1 - a beautiful watercolor painting of subway Exit 3 with cherry blossoms nearby, Panel 2 - walking past a charming illustrated convenience store with warm lights, Panel 3 - a lovely crosswalk scene with a striped cat sitting on the corner, Panel 4 - arriving at a cute small building with a flower wreath on the door and a welcome mat. Soft watercolor textures, loose brush strokes, warm spring color palette, each panel feels like a page from a picture book</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">3-4. 라인드로잉 택배 보관함 안내</div><button class="cp" onclick="cc(this)">복사</button><pre>A 4-panel guide for using a parcel locker, elegant single-line continuous drawing style with one accent color (coral pink): Panel 1 - a delivery person gently placing a package with a small heart, Panel 2 - a phone screen showing a notification with the code number glowing in coral, Panel 3 - fingers typing the code on a keypad with a satisfying click effect, Panel 4 - the locker opens with a gentle glow and the person hugs the package happily. Minimalist white background, thin black continuous lines, sophisticated and modern feel</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">3-5. 동화책 스타일 반려동물 엘리베이터 안내</div><button class="cp" onclick="cc(this)">복사</button><pre>A 4-panel elevator etiquette guide with pets, children's storybook illustration style with visible paper grain texture: Panel 1 - a person and a fluffy white dog approaching a golden elevator door in a cozy apartment lobby, Panel 2 - lovingly picking up the dog who looks delighted with tongue out, Panel 3 - inside the elevator standing politely while the dog waves a tiny paw at another passenger, Panel 4 - stepping out of the elevator with the dog still happily held, small flowers decorating the hallway. Warm gouache painting style, rich but soft colors, storybook charm</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">3-6. 실사 — 무인카페 주문 4단계 사진</div><button class="cp" onclick="cc(this)">복사</button><pre>A 4-panel real photograph guide showing how to order at an unmanned cafe, shot with Fujifilm X-T5, 35mm f/1.4 lens, consistent warm indoor lighting across all panels: Panel 1 - close-up of a hand tapping the kiosk welcome screen with a finger, screen glowing softly, Panel 2 - over-the-shoulder shot of the menu screen showing dessert options with one item highlighted in blue, Panel 3 - extreme close-up of a contactless credit card hovering over the payment terminal with a green LED confirmation light, Panel 4 - a hand picking up a beautifully plated cake from the pickup counter with a small receipt next to it. Each panel has consistent color grading with warm amber tones and shallow depth of field, the 4 photos are arranged in a clean 2x2 grid with thin white borders, editorial lifestyle photography quality</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+
+<div class="prompt-title">실습 4 — 브랜드 캐릭터 생성 (6개)</div>
+<div class="cb"><div class="cl">4-1. 글레이즈드 도넛 빵집 캐릭터</div><button class="cp" onclick="cc(this)">복사</button><pre>A glossy glazed donut character as a bakery brand mascot, the glaze is dripping slightly with realistic sugar shine, tiny arms and legs made of pretzel sticks, wearing a microscopic chef hat, sitting on a marble countertop dusted with powdered sugar, warm bakery lighting, hyper-realistic food photography style but the character is alive and winking, shallow depth of field, irresistibly cute and delicious looking</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">4-2. 무지개 비누방울 세탁소 캐릭터</div><button class="cp" onclick="cc(this)">복사</button><pre>A magical soap bubble fairy character for a laundry brand, translucent iridescent body reflecting rainbow colors like a real soap bubble, tiny crystalline wings, wearing a fluffy cloud-like dress, floating above a pile of fresh warm towels with visible steam, sparkle particles everywhere, dreamy soft focus background in lavender and sky blue, fantasy illustration style meets product photography, ethereal and clean</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">4-3. 골든리트리버 탐험가 펫샵 캐릭터</div><button class="cp" onclick="cc(this)">복사</button><pre>A golden retriever puppy character dressed as a tiny explorer for a pet store brand, wearing a miniature safari vest with many pockets, a small compass hanging from the vest, sitting inside an oversized hiking boot like it is a boat, surrounded by scattered dog treats and tiny maps, adventure illustration style with warm golden lighting, the puppy has an excited curious expression with one ear perked up, heartwarming and adventurous</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">4-4. 마법의 책 부엉이 독서모임 캐릭터</div><button class="cp" onclick="cc(this)">복사</button><pre>A wise owl character literally emerging from the pages of an open magical book, the book pages are swirling into the air forming a spiral staircase, the owl wears tiny round golden spectacles and a knitted burgundy scarf, holding a glowing quill pen, magical particles and floating letters surround the scene, dark library background with candlelight, Harry Potter meets Miyazaki aesthetic, enchanting and intellectual</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">4-5. 로봇 바리스타 무인카페 캐릭터</div><button class="cp" onclick="cc(this)">복사</button><pre>A sleek mini robot barista character for an unmanned cafe, matte white body with rose gold accent joints, its face screen displays an animated latte art being drawn, one articulated arm gracefully pouring steamed milk into a ceramic cup with visible latte art forming, coffee beans scattered on the counter, warm espresso-toned lighting with soft steam rising, the robot has a gentle head tilt showing personality, blend of futuristic tech and cozy cafe warmth</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">4-6. 실사 — 브랜드 굿즈 목업 촬영</div><button class="cp" onclick="cc(this)">복사</button><pre>A flat lay product photography of brand character merchandise for a small bakery, shot with Nikon Z8, 50mm f/1.8 macro lens, ISO 160, overhead natural daylight from a large north-facing window: a custom enamel pin of a cute donut character on a kraft paper backing card, a small canvas tote bag printed with the same character, a round vinyl sticker sheet with 6 character poses, and a business card with the character as the logo, all arranged on a warm beige linen fabric background with scattered dried wheat stalks and a fresh croissant for props, every texture is razor sharp showing the metallic sheen of the enamel pin and the weave of the canvas bag, soft natural shadows, the kind of photo that gets 10K saves on Instagram, commercial product photography for independent brand launch</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+
+<div class="prompt-title">실습 5 — 무인 가게 행동요령 안내 (6개)</div>
+<div class="cb"><div class="cl">5-1. QR 스캔 입장 장면</div><button class="cp" onclick="cc(this)">복사</button><pre>A stylish customer scanning a QR code at an unmanned store entrance, close-up shot of the phone screen showing a green checkmark appearing, the glass door has a soft blue LED strip around the frame that glows as the door unlocks, modern minimalist store interior visible through frosted glass, the reflection of the customer is subtly visible, night time with warm interior light contrasting cool exterior, cinematic shallow depth of field, sleek and futuristic mood</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">5-2. 키오스크 터치 순간</div><button class="cp" onclick="cc(this)">복사</button><pre>A dramatic close-up of a finger about to touch a glowing kiosk screen in an unmanned store, the screen displays beautifully photographed menu items with a soft UI glow, the finger creates a subtle ripple light effect on the touchscreen, the kiosk body is matte black with edge lighting, blurred modern store interior in the background with ambient LED lighting, product photography style, the moment of interaction frozen in time, satisfying and tech-forward</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">5-3. 픽업 로커 오픈 순간</div><button class="cp" onclick="cc(this)">복사</button><pre>The magical moment a pickup locker door swings open in an unmanned store, warm golden light spills out from inside the locker like opening a treasure chest, a neatly packaged item sits inside with a small thank-you sticker visible, the customer's hands reaching toward it with anticipation, surrounding lockers have subtle cool blue LED number displays, dramatic contrast between warm golden interior light and cool ambient store lighting, cinematic composition</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">5-4. 글래스모피즘 매장 규칙 아이콘</div><button class="cp" onclick="cc(this)">복사</button><pre>A set of 4 beautiful rounded square icons for unmanned store rules, glassmorphism style with frosted glass effect and subtle gradient backgrounds: icon 1 - a minimalist security camera with a soft blue pulse ring, icon 2 - a sleek trash bin with a swooping arrow in fresh green, icon 3 - a coffee cup with a gentle red prohibition circle, icon 4 - a phone showing a friendly chat bubble with a heart. Each icon has a soft color-coded glow behind it, arranged in a 2x2 grid, modern app icon aesthetic, polished and premium</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">5-5. 고객센터 연결 안내</div><button class="cp" onclick="cc(this)">복사</button><pre>A reassuring customer support guide illustration for an unmanned store, split composition: left side shows a customer looking at a sleek wall-mounted help panel with a glowing QR code and pulsing call button, right side shows a floating holographic customer service avatar appearing from the scanned QR code with a friendly wave and speech bubble, connected by flowing light particles between the two sides, calm navy and warm amber color scheme, the message is clear: help is always just one scan away, modern and comforting</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">5-6. 실사 — 무인 매장 야간 외관</div><button class="cp" onclick="cc(this)">복사</button><pre>Exterior night photograph of a modern unmanned convenience store on a quiet Korean alley, shot with Sony A7III, 35mm f/1.4 GM lens, ISO 800, the store interior glows with warm white light through large clean glass walls making it look like a glowing lantern in the dark street, a single customer silhouette visible inside browsing the shelves, the store sign is a minimal backlit acrylic panel reading "24H" in soft white, wet pavement after rain reflecting all the warm interior light and a few colorful reflections from a nearby vending machine, a parked bicycle leaning against the wall adds life to the scene, slight lens flare from the interior lights, the atmosphere is calm lonely yet comforting like an Edward Hopper painting set in modern Seoul, cinematic street photography with film grain, Kodak Portra 400 color emulation</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+
+<div class="prompt-title">BONUS — 화보급 실사 프롬프트 (2개)</div>
+<div class="co i"><div class="co-b"></div><div class="co-t"><strong>강사 Mark의 TIP</strong> 아래 두 프롬프트는 중형 카메라(Phase One, Hasselblad) + 정밀 조명 + 색온도 대비를 극한까지<br>활용한 화보 수준의 프롬프트입니다.</div></div>
+<div class="cb"><div class="cl">BONUS-1. 뉴욕 타임스퀘어 한복 여성 모델</div><button class="cp" onclick="cc(this)">복사</button><pre>A stunning Korean female model in her late 20s standing confidently in the middle of Times Square New York City, wearing a modern reinterpretation of a traditional Korean hanbok — the jeogori top is luxurious deep navy silk with intricate gold thread embroidery of crane and cloud motifs on the sleeves, the chima skirt is flowing crimson red raw silk reaching the ground with natural wind-blown movement revealing layers of white underskirt, her hair is styled in a sleek low bun with a traditional binyeo hairpin made of jade and gold, minimal elegant makeup with bold red lips and dewy glass skin, she wears modern black stiletto heels creating a striking fusion of tradition and contemporary fashion, the Times Square LED billboards behind her are slightly out of focus creating a wash of electric blue pink and yellow bokeh, yellow taxi cabs streak past as motion blur on both sides, the wet asphalt reflects all the neon colors creating a mirror effect on the ground, pedestrians in the far background are motion-blurred ghosts, she stands perfectly still and sharp as the only frozen element in the chaos, shot with Phase One IQ4 150MP medium format digital back, Schneider Kreuznach 110mm f/2.8 LS lens wide open, ISO 100, 1/250s with rear-curtain sync flash providing subtle fill light on her face while maintaining the ambient neon atmosphere, the color grading has lifted shadows with teal tones in the darks and warm amber in the highlights reminiscent of a Wong Kar-wai film, the image has the editorial quality of a Vogue Korea December cover shoot produced on location in Manhattan, ultra high resolution with every thread of the embroidery and every raindrop on the asphalt visible</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">BONUS-2. 광화문 한복 남성 모델</div><button class="cp" onclick="cc(this)">복사</button><pre>A striking Korean male model in his early 30s with a sharp jawline and intense gaze standing before Gwanghwamun Gate in Seoul during the blue hour just after sunset, wearing a traditional gat hat in jet black horsehair with a perfectly circular brim casting a subtle shadow across his brow, his durumagi overcoat is charcoal gray silk with a subtle woven geometric pattern visible only when light catches the fabric, underneath a pristine white jeogori with mother-of-pearl button closures called goreum ties flowing in the evening breeze, dark navy baji trousers with clean pressed lines, traditional black taesahye leather shoes, his posture is upright and commanding with both hands clasped behind his back, Gwanghwamun Gate behind him is illuminated with warm golden floodlights highlighting the intricate dancheong paintwork on the wooden beams in red blue green and gold, the stone foundation of the gate has a weathered ancient texture, Bukhansan mountain is faintly visible in the deep blue twilight sky behind the gate roofline, a thin layer of morning mist floats at ankle level across the stone courtyard adding a mystical atmosphere, two traditional palace lanterns on either side cast warm amber pools of light on the ground, shot with Hasselblad X2D 100C medium format camera, XCD 90mm f/2.5 V lens at f/2.5 for razor-sharp subject with creamy background separation, ISO 64 for maximum dynamic range capturing both the bright gate illumination and the subtle blue hour sky gradient, a single large circular reflector camera-left bouncing the warm gate light back onto his face creating dimensional Rembrandt lighting with a perfect triangle of light on his far cheek, the overall color palette balances the cool blue twilight sky against the warm golden gate illumination with his gray and white hanbok serving as the neutral bridge between the two temperatures, the image feels like a spread from a luxury heritage fashion editorial in GQ Korea or Wallpaper magazine, every fiber of the horsehair gat every pearl button every carved stone block in the gate wall rendered in breathtaking medium format detail</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+</section>
+
+<!-- ═══ 실습 1 ═══ -->
+<section class="section" id="pr1">
+<p class="overline">Practice 1 &mdash; 15분</p>
+<h2 class="section-title">실습: Flow에서 이미지 만들고 비교하기</h2>
+<p class="section-desc">프롬프트를 복사해서 Flow에 붙여넣고, 같은 프롬프트를 Gemini/ChatGPT에서도 돌려보세요.</p>
+<div class="steps">
+<div class="si"><div class="sb">1</div><div class="sc"><h4>Flow에 접속 및 로그인</h4><p>크롬 브라우저에서 <a href="https://labs.google/flow" target="_blank">labs.google/flow</a> 접속, 구글 계정 로그인</p></div></div>
+<div class="si"><div class="sb">2</div><div class="sc"><h4>프롬프트 복사 후 붙여넣기</h4><p>위 프롬프트에서 "복사" 버튼 클릭 &rarr; Flow 입력창에 Ctrl+V &rarr; 생성</p></div></div>
+<div class="si"><div class="sb">3</div><div class="sc"><h4>4장 중 마음에 드는 것 선택</h4><p>4장이 동시에 나옵니다. 클릭해서 확대하고 마음에 드는 1장을 다운로드</p></div></div>
+<div class="si"><div class="sb">4</div><div class="sc"><h4>Gemini 또는 ChatGPT에서 비교</h4><p>같은 프롬프트를 <a href="https://gemini.google.com" target="_blank">gemini.google.com</a> 또는 <a href="https://chatgpt.com" target="_blank">chatgpt.com</a>에 붙여넣어서 결과를 비교해보세요</p></div></div>
+<div class="si"><div class="sb">5</div><div class="sc"><h4>프롬프트 단어 바꿔보기</h4><p>"shiba inu"를 "persian cat"으로, "bakery"를 "flower shop"으로 바꿔서 재생성해보세요</p></div></div>
+</div>
+</section>
+
+<!-- 쉬는 시간 -->
+<div class="brk"><span>쉬는 시간 10분</span></div>
+
+<!-- ═══ 2부 ═══ -->
+<section class="section" id="p2">
+<p class="overline">Part 2 &mdash; 50분+</p>
+<h2 class="section-title">AI QR코드 아트 + 스마트 안내 시스템</h2>
+<p class="section-desc">1부에서 만든 이미지에 QR코드 아트를 결합하면 스마트 안내 시스템이 완성됩니다.</p>
+
+<div class="cbox"><div class="lb">Core Concept</div><div class="mt">QR코드 아트 = 예쁜 그림이 들어있지만 스캔 기능은 100% 동일한 QR코드</div><div class="dt">종이 안내문에 QR코드를 하나 붙이면 스캔 시 영상, 지도, 전화 연결까지 가능합니다.<br>종이 안내문이 스마트 안내문으로 업그레이드되는 거예요.</div></div>
+<p class="source">참고: <a href="https://qrcode-ai.com/ko" target="_blank">qrcode-ai.com</a> / <a href="https://me-qr.com/ko/art-qr-code" target="_blank">me-qr.com</a></p>
+
+<div class="co t"><div class="co-b"></div><div class="co-t"><strong>예시</strong> 현관문을 생각해보세요. 예쁜 스테인드글라스 문이어도 열고 닫는 기능은 똑같죠? QR코드 아트도 마찬가지예요.</div></div>
+
+<div class="split">
+<div class="sp-s l"><span class="sp-tag">일반 QR코드</span><h4>검정 흰색 네모 패턴</h4><p>기능은 하지만 딱딱하고 브랜드 감성이 없습니다.</p></div>
+<div class="sp-s r"><span class="sp-tag">QR코드 아트</span><h4>브랜드 감성이 담긴 디자인</h4><p>AI가 QR코드 안에 이미지를 입힙니다. 스캔 기능은 동일.</p></div>
+</div>
+
+<!-- 전체 흐름 플로우 -->
+<h3 class="sh">스마트 안내 시스템 제작 흐름</h3>
+<div class="flow">
+<div class="flow-i"><div class="flow-n">1</div><div style="flex:1"><div class="flow-l">1부에서<br>이미지 제작</div></div></div>
+<div class="flow-i"><div class="flow-n">2</div><div style="flex:1"><div class="flow-l">Google Sites<br>안내 페이지</div></div></div>
+<div class="flow-i"><div class="flow-n">3</div><div style="flex:1"><div class="flow-l">URL로<br>QR아트 생성</div></div></div>
+<div class="flow-i"><div class="flow-n">4</div><div style="flex:1"><div class="flow-l">Canva에서<br>포스터 조합</div></div></div>
+<div class="flow-i"><div class="flow-n">5</div><div style="flex:1"><div class="flow-l">스마트 안내<br>포스터 완성</div></div></div>
+</div>
+
+<!-- QR 프롬프트 -->
+<div class="prompt-title">QR코드 아트 프롬프트 (5개)</div>
+<div class="cb"><div class="cl">QR-1. 카페 감성</div><button class="cp" onclick="cc(this)">복사</button><pre>A warm cozy cafe interior with steaming coffee cups on wooden tables, soft golden pendant lights, green plants on shelves, watercolor illustration style, warm amber and cream color palette</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">QR-2. 꽃집 감성</div><button class="cp" onclick="cc(this)">복사</button><pre>A beautiful flower shop entrance with colorful bouquets overflowing from buckets, pastel pink awning, cobblestone street, soft morning light, romantic watercolor style</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">QR-3. 테크/무인가게 감성</div><button class="cp" onclick="cc(this)">복사</button><pre>A futuristic minimalist store interior with glowing blue LED shelves, sleek white surfaces, holographic displays, clean geometric patterns, cyberpunk meets minimal style</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">QR-4. 자연/힐링 감성</div><button class="cp" onclick="cc(this)">복사</button><pre>A peaceful zen garden with a small wooden bridge over a koi pond, cherry blossom petals falling, soft mist in the background, Japanese watercolor ink painting style</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+<div class="cb"><div class="cl">QR-5. 반려동물 감성</div><button class="cp" onclick="cc(this)">복사</button><pre>A playful golden retriever puppy running through a field of sunflowers, bright sunny day, butterflies flying around, cheerful children's book illustration style</pre><button class="ct" onclick="tog(this)">전체 보기</button></div>
+</section>
+
+<!-- ═══ 실습 2 ═══ -->
+<section class="section" id="pr2">
+<p class="overline">Practice 2 &mdash; 15분</p>
+<h2 class="section-title">실습: QR코드 아트 만들고 스마트 안내 포스터 완성하기</h2>
+<div class="steps">
+<div class="si"><div class="sb">1</div><div class="sc"><h4>QR코드 기본 생성</h4><p><a href="https://qrcode-ai.com/ko" target="_blank">qrcode-ai.com</a> 접속 &rarr; URL 입력 (인스타, 블로그, 구글맵 등) &rarr; 생성 &rarr; 스마트폰으로 스캔 테스트</p></div></div>
+<div class="si"><div class="sb">2</div><div class="sc"><h4>AI QR코드 아트 생성</h4><p>"QR Code Art" 탭 &rarr; 위 QR 프롬프트 복사 붙여넣기 &rarr; 생성 후 반드시 스캔 테스트 &rarr; PNG 다운로드</p></div></div>
+<div class="si"><div class="sb">3</div><div class="sc"><h4>Canva에서 포스터 조합</h4><p><a href="https://canva.com" target="_blank">canva.com</a> &rarr; 새 디자인(A4) &rarr; 1부 안내 이미지 업로드 + QR코드 아트 배치 &rarr; "QR코드를 스캔하세요" 문구 추가</p></div></div>
+<div class="si"><div class="sb">4</div><div class="sc"><h4>Google Sites로 안내 페이지 만들기</h4><p><a href="https://sites.google.com" target="_blank">sites.google.com</a> &rarr; 새 사이트 &rarr; 이미지/텍스트 배치 &rarr; "게시" &rarr; URL 복사 &rarr; 이 URL로 QR코드 재생성</p></div></div>
+<div class="si"><div class="sb">5</div><div class="sc"><h4>최종 스캔 테스트</h4><p>완성된 포스터의 QR코드를 스마트폰으로 스캔 &rarr; 안내 페이지가 열리면 성공!</p></div></div>
+</div>
+<div class="co w"><div class="co-b"></div><div class="co-t"><strong>참고</strong> QR코드는 최대 30%까지 손상되어도 복원됩니다.<br>다만 너무 복잡한 이미지면 인식률이 떨어지니 생성 후 반드시 스캔 테스트하세요.</div></div>
+</section>
+
+<!-- ═══ 적용 미션 ═══ -->
+<section class="section" id="ms">
+<p class="overline">After Class</p>
+<h2 class="section-title">적용 미션</h2>
+<p class="section-desc">수업 후 직접 실행해 보세요. 반복 사용해야 진짜 내 것이 됩니다.</p>
+<div class="mi"><h3>미션 1 &mdash; 나만의 이미지 3장 세트 만들기</h3><p>내 가게/브랜드/동네에 필요한 이미지 3장을 만드세요.</p>
+<div class="mh"><strong>구성</strong><p>브랜드 캐릭터 1장 + 상황 연출 또는 안내 이미지 1장 + Gemini/ChatGPT 비교 결과 1장<br>프롬프트 5요소(대상, 스타일, 배경, 분위기, 기술 지정)를 모두 포함했는지 체크!</p></div></div>
+<div class="mi"><h3>미션 2 &mdash; 스마트 안내 포스터 1장 완성하기</h3><p>1부 이미지 + QR코드 아트를 결합해서 실제 매장에 붙일 수 있는 포스터를 완성하세요.</p>
+<div class="mh"><strong>아이디어</strong><p>무인 가게 이용 안내 / 카페 메뉴 QR / 오시는 길 안내 / 주차장 안내<br>Google Sites 안내 페이지 &rarr; URL로 QR아트 생성 &rarr; Canva 포스터 조합 &rarr; 완성!</p></div></div>
+</section>
+
+</main>
+
+<footer class="footer">
+<p style="font-size:16px;color:rgba(255,255,255,.45);margin-bottom:20px;letter-spacing:.04em">Mark's AI Class</p>
+<p class="hl">오늘 배운 프롬프트 구조를 기억하면</p>
+<p class="hl">어떤 새 도구가 나와도 바로 활용할 수 있습니다.</p>
+<p style="margin-top:16px;margin-bottom:28px">감사합니다.</p>
+<a href="https://strong88ai.github.io/Mark_class_01/" style="display:inline-block;padding:16px 36px;background:#14B8A6;color:#fff;font-size:17px;font-weight:700;border-radius:10px;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#0F766E'" onmouseout="this.style.background='#14B8A6'">1주차 강의페이지 바로가기</a>
+</footer>
+
+<script>
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}
+const ids=['obj','p1','pr1','p2','pr2','ms'];
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));const i=ids.indexOf(e.target.id);if(i>=0)document.querySelectorAll('.nav-item')[i].classList.add('active')}})},{rootMargin:'-80px 0px -60% 0px'});
+ids.forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el)});
+function cc(btn){const pre=btn.closest('.cb').querySelector('pre');navigator.clipboard.writeText(pre.textContent).then(()=>{btn.textContent='복사됨';btn.classList.add('copied');setTimeout(()=>{btn.textContent='복사';btn.classList.remove('copied')},2000)})}
+function tog(btn){const cb=btn.closest('.cb');const isExp=cb.classList.toggle('expanded');btn.textContent=isExp?'접기':'전체 보기'}
+</script>
+</body>
+</html>
