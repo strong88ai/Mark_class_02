@@ -160,37 +160,15 @@ end()
 
 # 3 site
 begin(); header(3,'Site Analysis'); tag(15,31,'배치 = 현장 모델 기준 · 해수면 높이 가정')
-for i in range(9): rect(18+i*22,39,34+i*22,49,fill=(225,220,212),stroke=(200,194,186),lw=0.2)
-text(117,44,'주택단지','Regular',7,SUB,'mm')
-rect(15,53,220,71,fill=(120,118,116)); line([(15,62),(220,62)],(230,200,60),0.8)
-text(19,57,'해안도로','Medium',7.5,(255,255,255))
-rect(15,73,220,180,fill=(228,218,198))
-rect(15,118,108,125,fill=(70,62,58)); rect(55,71,62,118,fill=(70,62,58))
-for xx in range(22,104,12):
-    for yy in (108,135): circ(xx,yy,2.2,(96,128,78))
-text(62,150,'야자수 광장 · 산책로','Medium',8,INK,'mm')
-rect(110,112,174,160,fill=(250,248,244),stroke=INK,lw=0.8); rect(118,120,166,150,fill=(220,214,205))
-text(142,135,'숨비','SemiBold',10,INK,'mm'); text(142,142,'B1 24.5 × 18.6m','Regular',6.5,SUB,'mm')
-c.setFillColorRGB(*hexc((236,236,236))); c.setStrokeColorRGB(*hexc(SUB)); c.setLineWidth(0.3); c.roundRect(180,108,38,52,14,stroke=1,fill=1)
-text(199,134,'이웃 곡면 건물','Regular',6.5,SUB,'mm')
-rr=np.random.default_rng(11)
-for i in range(60):
-    x=15+rr.random()*203; y=182+rr.random()*20; s=2+rr.random()*3.5
-    poly([(x,y),(x+s,y-s*0.4),(x+s*1.6,y+s*0.5),(x+s*0.6,y+s)],(80+int(rr.random()*40),)*3)
-text(19,186,'바위 호안','Medium',7.5,(255,255,255))
-rect(15,205,220,282,fill=SEA)
-for k in range(5): line([(15,212+k*6),(220,212+k*6)],(120,140,152),0.3)
-text(117,262,'바다 · 남측 (대포 해안)','Medium',11,(255,255,255),'mm')
-arrow((58,66),(58,116),SONGI,0.7,2.5); arrow((62,121),(108,121),SONGI,0.7,2.5)
-text(66,96,'보행 진입','Medium',7,SONGI)
-for ax in (130,155): arrow((ax,162),(ax,228),(230,236,240),1.2,3.5)
-text(142,236,'조망축','SemiBold',8,(255,255,255),'mm')
-arrow((90,58),(128,108),RED,0.6,2.5); line([(105,78),(112,85)],RED,0.8); line([(112,78),(105,85)],RED,0.8)
-text(66,81,'도로 시선 차단','Medium',7,RED)
-arrow((205,232),(205,196),RED,0.8,3); text(208,238,'태풍 · 월파','Medium',7.5,RED,'ra')
-c.setStrokeColorRGB(*hexc(GOLD)); c.setLineWidth(0.8); c.arc(100,Y(250),185,Y(150),205,130)
-text(186,214,'태양궤적 (남중)','Regular',7,(255,236,200))
-north(210,90,False)
+im_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/blender/site_axo.png').convert('RGB'); img(im_,15,36,205,205)
+def lab(x,y,t,col=INK,size=7.5,w='Medium'):
+    f_,sz_=fnt(w,size); tw_=pdfmetrics.stringWidth(t,f_,sz_)
+    rect(x-1.5,y-3,x+tw_+1.5,y+3,fill=(255,255,255) if col!=(255,255,255) else SEA,r=1.5); text(x,y,t,w,size,col,'lm')
+for (x,y,t) in [(28,84,'주택단지'),(58,112,'해안도로'),(22,176,'야자수 광장 · 산책로'),(92,129,'숨비'),(128,119,'오션 자쿠지'),(165,95,'이웃 곡면 건물'),(64,190,'바위 호안')]: lab(x,y,t)
+lab(140,214,'바다 · 남측',(255,255,255),8)
+cx_,cy_=205,58; dx_,dy_=-0.82,-0.57
+arrow((cx_,cy_),(cx_+dx_*12,cy_+dy_*12),INK,0.8,3); text(cx_+dx_*15,cy_+dy_*15,'N','SemiBold',9,INK,'mm')
+text(15,246,'※ 현장 배치 기준 3D 모델 렌더 (Blender) · 주변 건물은 단순화','Regular',7,SUB)
 x=240; y=45; text(x,y,'대지 조건','SemiBold',13); y+=11
 for k,v in [('위치','제주 서귀포시 대포동 2217 (중문 · 주상절리대 인근 해안)'),('배치','바다 → 바위 호안 → 대지 → 야자수 광장 → 해안도로 → 주택단지'),
       ('향','남향 · 바다 조망 (현장 모델 그림자 방향 기준)'),('지형','도로 · 광장 레벨 평탄, 바다 쪽 바위 호안에서 해수면으로 높이차'),
@@ -206,40 +184,26 @@ end()
 
 # 4 section
 begin(); header(4,'Site Section  N — S'); tag(15,31,'평면 치수 = 도면 · 층고 · 해수면 = 가정값')
-b0=150; sc=9
-def L(lv): return b0-lv*sc
-X0=95; def_x=lambda m_: X0+m_*sc
-rect(300,L(-3.0),W-15,268,fill=SEA); text(372,L(-3.0)+40,'바다 (해수면, 가정)','Medium',10,(255,255,255),'mm')
-poly([(20,L(0)),(def_x(18.6)+2,L(0)),(def_x(18.6)+2,268),(20,268)],(214,206,194))
-xr=def_x(18.6)+2
-poly([(xr,L(0)),(xr+10,L(0)),(322,L(-4.6)),(322,268),(xr,268)],(72,72,72))
-rr=np.random.default_rng(5)
-for i in range(70):
-    t_=rr.random(); x=xr+10+t_*(322-xr-10)-rr.random()*8; y=L(0)+t_*(L(-4.6)-L(0))+rr.random()*6
-    s_=2+rr.random()*3; poly([(x,y),(x+s_,y-s_*0.5),(x+s_*1.6,y+s_*0.4),(x+s_*0.5,y+s_)],(95+int(rr.random()*45),)*3)
-text(xr+14,L(0)-4,'바위 호안','Medium',8,INK)
-line([(20,L(0)),(X0,L(0))],INK,0.7); text(22,L(0)-6,'해안도로 · 광장','Medium',8.5)
-def vol(x0,x1,l0,l1,col,name=None):
-    rect(def_x(x0),L(l1),def_x(x1),L(l0),fill=col,stroke=INK,lw=0.7)
-    if name: text(def_x(x0)+4,L(l1)+4,name,'SemiBold',11)
-vol(0,18.6,-4.2,0,(150,150,150),'B1  깊음')
-text(def_x(9.3),L(-2.6),'현관 · 주차장 · 창고','Regular',8,(245,245,245),'mm')
-vol(0,10.5,0,3.6,SAND,'1F  숨'); text(def_x(5.6),L(1.3),'주방 · 거실','Regular',8,SUB,'mm')
-vol(0,7.6,3.6,7.2,(196,206,212),'2F  쉼'); text(def_x(4.2),L(4.9),'거실 · 드레스룸','Regular',8,SUB,'mm')
-vol(0,3.8,7.2,9.8,(230,230,230)); text(def_x(1.9),L(8.5),'계단실·EV','Regular',6.5,SUB,'mm')
-rect(def_x(7.6),L(3.6),def_x(16.0),L(3.3),fill=(196,206,212),stroke=INK,lw=0.5)
-rect(def_x(13.4),L(3.3),def_x(16.0),L(2.6),fill=WATERC,stroke=INK,lw=0.5)
-line([(def_x(16.0),L(3.6)),(def_x(16.0),L(4.8))],(120,150,170),1.0)
-for xc in (12.0,15.7): rect(def_x(xc),L(2.6) if xc>13 else L(3.3),def_x(xc)+2.2,L(0),fill=(230,230,230),stroke=INK,lw=0.4)
-text(def_x(11.0),L(3.6)-4,'곡선 테라스','Regular',7.5,INK,'mm'); text(def_x(14.7),L(2.6)+4,'오션 자쿠지','Medium',7.5,INK,'mm')
-text(def_x(14.5),L(0)-4,'1F 테라스 · 마당','Regular',7.5,INK,'mm')
-for lv in (-4.2,0,3.6,7.2): text(X0-3,L(lv),f'FL {lv:+.1f}','Regular',7,SUB,'rm')
-line([(X0-1.5,L(0)),(X0-1.5,L(-4.4))],BLUE,1.0); line([(def_x(18.6)+1.5,L(0)),(def_x(18.6)+1.5,L(-4.4))],BLUE,1.0); line([(X0-1.5,L(-4.4)),(def_x(18.6)+1.5,L(-4.4))],BLUE,1.0)
-text(X0-3,L(-1.8),'외방수','Regular',7,BLUE,'rm'); text(X0-3,L(-2.8),'+ 배수판','Regular',7,BLUE,'rm')
-for lv,x0_ in ((1.8,10.5),(5.4,7.6),(4.2,16.0)): arrow((def_x(x0_)+3,L(lv)),(W-25,L(lv)-1),SONGI,0.7,3)
-text(W-25,L(5.4)-4,'수평선 조망','SemiBold',8,SONGI,'ra')
-line([(def_x(18.6)+2,L(-3.0)),(300,L(-3.0))],(60,120,160),0.5,([2,1],0))
-text(X0,L(-4.2)+8,'B1 바닥 < 해수면 (가정) → 외방수 · 차수 · 집수정 필수 (Detail 01)','Medium',8,RED)
+im_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/blender/section.png').convert('RGB'); img(im_,15,40,390,175.5)
+def P(Y,z): return (210+(3-Y)*8.478, 127.75-(z-0.5)*8.478)
+def lab(x,y,t,col=INK,size=7.5,w='Medium',bg=(255,255,255)):
+    f_,sz_=fnt(w,size); tw_=pdfmetrics.stringWidth(t,f_,sz_)
+    if bg: rect(x-1.5,y-3,x+tw_+1.5,y+3,fill=bg,r=1.5)
+    text(x,y,t,w,size,col,'lm')
+for Y_,z_,t in [(18.3,6.6,'2F  쉼'),(18.3,3.0,'1F  숨'),(18.3,-0.7,'B1  깊음')]:
+    x_,y_=P(Y_,z_); lab(x_,y_,t,INK,10,'SemiBold',None)
+for Y_,z_,t in [(16.5,4.1,'거실 · 드레스룸'),(17.2,0.5,'주방 · 거실'),(9.8,0.5,'테라스'),(4.5,0.5,'마당'),(17.5,-3.7,'캠핑 창고'),(9.6,-3.7,'주차장'),(4.2,-3.7,'바이크 창고'),(9.4,4.3,'곡선 테라스'),(8.6,2.0,'오션 자쿠지')]:
+    x_,y_=P(Y_,z_); lab(x_,y_,t,INK,7)
+for z_,t in [(7.2,'FL +7.2'),(3.6,'FL +3.6'),(0,'FL ±0'),(-4.2,'FL −4.2')]:
+    x_,y_=P(19.0,z_); text(x_-1,y_,t,'Regular',7,SUB,'rm')
+x_,y_=P(27,0.9); lab(x_,y_,'해안도로 · 광장')
+x_,y_=P(-2.0,1.2); lab(x_,y_,'바위 호안')
+x_,y_=P(-13,-5.5); text(x_,y_,'바다 (해수면, 가정)','Medium',9,(255,255,255),'mm')
+for z_ in (5.4,1.9):
+    a_=P(0.0,z_); b_=P(-17,z_); arrow(a_,b_,SONGI,0.7,3)
+x_,y_=P(-17,5.4); text(x_,y_-3,'수평선 조망','SemiBold',8,SONGI,'ra')
+x_,y_=P(15,-5.3); text(x_,y_+2,'B1 바닥 < 해수면 (가정) → 외방수 · 차수 · 집수정 필수 (Detail 01)','Medium',7.5,RED)
+text(15,222,'단면 위치: 동측 X = 17m 지점 (B1 캠핑 창고 · 주차장 · 바이크 창고 / 1F 주방 · 테라스 · 마당 / 2F 거실 · 테라스 · 자쿠지 통과) · 3D 모델 렌더 (Blender)','Regular',7,SUB)
 wrap(W-15,36,"땅속(B1)에서 들어와 1층 마당과 2층 테라스로 오르며,\n층마다 남쪽 바다를 향해 한 번씩 숨을 내쉽니다.",'Regular',9.5,220,right=True)
 text(15,H-14,'※ 깊이는 도면 치수 (B1 18,600 / 1F 실내 10,500 / 2F 실내 7,600 · 테라스 포함 16,000). 층고 B1 4.2m · 1F 3.6m · 2F 3.6m와 해수면 높이는 가정값입니다.','Regular',7,SUB)
 end()
@@ -353,25 +317,9 @@ def site_check(x,y,title,items,width=140):
 # ---------- Detail 01 basement wall
 begin(); header(10,'Detail 01 · 지하 외벽 방수 (B1)')
 text(15,34,'해안 지하 = 지하수 · 염분 · 결로. 하자 1순위인 지하 누수를 외방수 + 배수 + 내부 결로 방지의 3단 구조로 막습니다.','Regular',9,SUB)
-hatch(20,60,99,262,'earth',EARTH)
-hatch(99,60,104,252,'drain',(225,225,225))
-rect(104,60,107,252,fill=(150,150,150))
-rect(107,60,110,252,fill=WP)
-hatch(110,60,140,232,'conc',CONC)
-hatch(140,60,150,220,'ins',INS)
-rect(153,60,156,220,fill=(238,238,236),stroke=SUB,lw=0.2)
-hatch(60,232,250,252,'conc',CONC)
-line([(60,252),(250,252)],WP,1.2); line([(107,252),(107,60)],WP,0.0)
-rect(60,252,250,258,fill=(180,176,170))
-hatch(78,236,99,252,'gravel',(214,206,194))
-circ(89,244,4,(255,255,255),INK,0.5)
-hatch(156,222,250,232,'conc',(222,219,214)); line([(140,232),(250,232)],WP,0.9)
-line([(156,220),(250,220)],INK,0.6)
-for xx in (20,250):
-    pass
-line([(95,58),(100,55),(105,61),(110,55),(115,61),(120,55),(125,61),(130,55),(135,61),(140,55),(145,61),(150,55),(158,58)],INK,0.4)
-text(200,140,'B1 실내','Medium',11,SUB,'mm'); text(55,140,'되메우기 흙','Medium',9,INK,'mm')
-for i,(x,y) in enumerate([(102,100),(105.5,120),(108.5,140),(125,170),(145,100),(154.5,120),(200,244),(170,226),(89,234),(160,256)],1): marker(x,y,i,2.6)
+im_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/blender/wall_layers.png').convert('RGB'); img(im_,15,42,235,171)
+for i,(dx_,dy_) in enumerate([(740,560),(790,640),(838,720),(930,800),(1075,520),(1300,560),(1300,1250),(1480,990),(650,1000),(560,1110)],1): marker(15+dx_*0.1175,42+dy_*0.1175,i,2.8)
+text(15,218,'좌 = 흙 쪽(외부) → 우 = B1 실내 · 3D 모델 렌더 (Blender) · 철근은 콘크리트 내부 복배근(절단면에 표시)','Regular',7,SUB)
 notes(262,42,[('배수판 (드레인보드)','흙 속 물을 아래로 흘려 방수층에 수압이 걸리지 않게 함'),
     ('보호판','되메우기 시 돌·장비로부터 방수층 보호'),
     ('외방수 복합시트 2겹','구조체 바깥에서 1차 차단. 바닥 → 벽까지 끊김 없이 감쌈'),
@@ -389,26 +337,8 @@ end()
 # ---------- Detail 02 jacuzzi
 begin(); header(11,'Detail 02 · 2F 오션 자쿠지 단면')
 text(15,34,'수면이 바다 쪽 수평선과 이어지는 인피니티 엣지. 바로 아래가 1층 테라스 · 마당이라서 방수 · 하중 · 점검을 가장 먼저 해결합니다.','Regular',9,SUB)
-rect(150,140,250,153,fill=(214,226,232)); text(248,136,'바다 · 수평선 →','Medium',8.5,SEA,'ra')
-hatch(20,150,72,165,'conc',CONC); hatch(226,150,250,165,'conc',CONC)
-hatch(72,150,82,220,'conc',CONC); hatch(214,165,226,220,'conc',CONC); hatch(72,205,226,220,'conc',CONC)
-line([(82,150),(82,203),(212,203),(212,156)],WP,1.0)
-rect(83,153,211,202,fill=WATER)
-for a_,b_,cc in [(83,95,165),(95,107,177),(107,119,189)]: rect(a_,cc,b_,202,fill=TILE)
-rect(20,145,72,150,fill=DECK); 
-for xx in range(24,72,8): rect(xx,150,xx+1.5,150.01,fill=DECK)
-rect(212,156,214,203,fill=TILE); line([(212,156),(214,156)],INK,0.4)
-rect(226,160,240,170,fill=(225,225,225),stroke=INK,lw=0.3); rect(227,161,239,169,fill=WATER)
-line([(245,150),(245,112)],(120,150,170),1.4); line([(245,112),(245,112)],INK,0.3)
-line([(80,153),(212,153)],(60,120,160),0.5,([2,1],0))
-rect(140,203,150,206,fill=(90,90,90))
-line([(145,206),(145,232),(232,232)],(90,90,90),1.0); line([(233,170),(233,232)],(90,90,90),1.0)
-rect(232,226,250,242,fill=(250,248,244),stroke=INK,lw=0.3); text(241,234,'M','SemiBold',8,INK,'mm')
-line([(20,245),(250,245)],INK,0.5); rect(160,244,175,246,fill=BG)
-text(135,262,'1F 테라스 상부 (하부 천장)','Medium',10,SUB,'mm')
-circ(110,250,1.5,(200,60,50)); 
-line([(60,153),(60,203)],INK,0.3); text(57,178,'수심 ≈ 900','Regular',7.5,INK,'rm')
-for i,(x,y) in enumerate([(46,141),(77,185),(82,196),(150,176),(100,196),(219,186),(233,156),(245,118),(145,200),(241,220),(167,250),(110,256)],1): marker(x,y,i,2.6)
+im_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/blender/jacuzzi.png').convert('RGB'); img(im_,15,42,235,156.7)
+text(15,204,'2F 테라스에서 본 오션 자쿠지 · 해 질 녘 · 3D 모델 렌더 (Blender)','Regular',7,SUB)
 notes(262,42,[('우드 데크 (페데스탈 지지)','데크 아래로 배수 → 테라스 방수층 보호'),
     ('RC 수조 구조체','바닥을 낮춘 단차 슬래브. 만수 하중 약 0.9t/㎡ + 마감 → 구조 검토'),
     ('1차 방수 (구조체)','우레탄 도막 또는 시트. 수조 바닥 → 벽 → 테라스까지 연속'),
