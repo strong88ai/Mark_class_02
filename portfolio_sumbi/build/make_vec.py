@@ -159,16 +159,11 @@ wrap(70,240,"차와 바이크, 캠핑을 즐기고, 반려견 · 반려묘와 �
 end()
 
 # 3 site
-begin(); header(3,'Site Analysis'); tag(15,31,'배치 = 현장 모델 기준 · 해수면 높이 가정')
-im_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/blender/site_axo.png').convert('RGB'); img(im_,15,36,205,205)
-def lab(x,y,t,col=INK,size=7.5,w='Medium'):
-    f_,sz_=fnt(w,size); tw_=pdfmetrics.stringWidth(t,f_,sz_)
-    rect(x-1.5,y-3,x+tw_+1.5,y+3,fill=(255,255,255) if col!=(255,255,255) else SEA,r=1.5); text(x,y,t,w,size,col,'lm')
-for (x,y,t) in [(28,84,'주택단지'),(58,112,'해안도로'),(22,176,'야자수 광장 · 산책로'),(92,129,'숨비'),(128,119,'오션 자쿠지'),(165,95,'이웃 곡면 건물'),(64,190,'바위 호안')]: lab(x,y,t)
-lab(140,214,'바다 · 남측',(255,255,255),8)
-cx_,cy_=205,58; dx_,dy_=-0.82,-0.57
-arrow((cx_,cy_),(cx_+dx_*12,cy_+dy_*12),INK,0.8,3); text(cx_+dx_*15,cy_+dy_*15,'N','SemiBold',9,INK,'mm')
-text(15,246,'※ 현장 배치 기준 3D 모델 렌더 (Blender) · 주변 건물은 단순화','Regular',7,SUB)
+begin(); header(3,'Site Analysis'); 
+ph_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/photos/px_28537609.jpg').convert('RGB'); ph_=ph_.crop((0,57,1920,57+2286)); img(ph_,15,36,205,244)
+rect(15,262,220,280,fill=(30,30,30)); text(19,268,'대포 주상절리대 — 대지 앞 바다의 현무암 기둥','SemiBold',9,(255,255,255)); text(19,275,'Reference photo · Pexels (무료 라이선스)','Regular',6.5,(210,210,210))
+im_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/blender/site_axo.png').convert('RGB').crop((300,200,2100,2000)); img(im_,240,200,78,78)
+text(322,206,'배치 입체도','SemiBold',9); wrap(322,214,'해안도로와 광장 사이,\n바위 호안 바로 옆에\n놓인 집 (3D 모델)','Regular',7.5,80,SUB)
 x=240; y=45; text(x,y,'대지 조건','SemiBold',13); y+=11
 for k,v in [('위치','제주 서귀포시 대포동 2217 (중문 · 주상절리대 인근 해안)'),('배치','바다 → 바위 호안 → 대지 → 야자수 광장 → 해안도로 → 주택단지'),
       ('향','남향 · 바다 조망 (현장 모델 그림자 방향 기준)'),('지형','도로 · 광장 레벨 평탄, 바다 쪽 바위 호안에서 해수면으로 높이차'),
@@ -335,10 +330,10 @@ text(15,H-14,'N.S. (Not to Scale) · 개념 디테일','Regular',7.5,SUB)
 end()
 
 # ---------- Detail 02 jacuzzi
-begin(); header(11,'Detail 02 · 2F 오션 자쿠지 단면')
+begin(); header(11,'Detail 02 · 2F 오션 자쿠지')
 text(15,34,'수면이 바다 쪽 수평선과 이어지는 인피니티 엣지. 바로 아래가 1층 테라스 · 마당이라서 방수 · 하중 · 점검을 가장 먼저 해결합니다.','Regular',9,SUB)
-im_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/blender/jacuzzi.png').convert('RGB'); img(im_,15,42,235,156.7)
-text(15,204,'2F 테라스에서 본 오션 자쿠지 · 해 질 녘 · 3D 모델 렌더 (Blender)','Regular',7,SUB)
+ph_=Image.open('/tmp/claude-0/-home-user-Mark-class-02/a822d4e8-ff77-57b7-bc84-1bfa881b1c64/scratchpad/photos/px_6437583.jpg').convert('RGB').crop((0,900,1920,2180)); img(ph_,15,42,235,156.7)
+rect(15,184,250,198.7,fill=(30,30,30)); text(19,189,'레퍼런스 — 해 질 녘, 수면이 수평선과 이어지는 인피니티 엣지','SemiBold',9,(255,255,255)); text(19,195,'Reference photo · Pexels (무료 라이선스)','Regular',6.5,(210,210,210))
 notes(262,42,[('우드 데크 (페데스탈 지지)','데크 아래로 배수 → 테라스 방수층 보호'),
     ('RC 수조 구조체','바닥을 낮춘 단차 슬래브. 만수 하중 약 0.9t/㎡ + 마감 → 구조 검토'),
     ('1차 방수 (구조체)','우레탄 도막 또는 시트. 수조 바닥 → 벽 → 테라스까지 연속'),
