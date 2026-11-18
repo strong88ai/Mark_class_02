@@ -287,6 +287,10 @@ def zoning(fl,title,n,pts,t,dims,iso=None):
 zoning('B1','B1  깊음 · Depth',3,P3,"집은 가장 깊은 곳에서 시작됩니다. 외부 계단으로 내려와 현관에 들어서면 주차장과 거실(라운지), 수영장이 이어지고, 바이크 · 캠핑 창고가 취미의 층을 완성합니다. 주차장은 방화구획과 기계 배기로 생활공간과 분리합니다.",'24,500 × 18,600')
 zoning('1F','1F  숨 · Breath',1,P1,"계단을 올라 1층에 서면 주방과 거실을 지나 폴딩도어 너머 테라스와 마당, 그리고 바다가 한 번에 열립니다. 가족 · 손님 · 반려동물이 모이는 환대의 층입니다.",'21,200 × 18,600',4)
 zoning('2F','2F  쉼 · Rest',2,P2,"침실과 안방, 개인 거실을 모은 사적인 층. 바다 쪽으로 열린 곡선 테라스 끝의 오션 자쿠지는 몸을 물에 담근 채 수평선을 마주하는, 이 집의 숨비소리 같은 순간입니다.",'18,850 × 17,500',5)
+begin(); header(0,'RF  Roof Plan')
+pl=Image.open(f'{PLANS}/d___real.png').convert('RGB'); a_=np.asarray(pl).astype(int); a_[(a_>235).all(2)]=BG; pl=Image.fromarray(a_.astype('uint8'))
+place(pl,(W-280)/2,36,280,225)
+text(15,H-14,'옥상 · 계단실 · EV 코어 / 18,850 × 16,000 · 단위 mm · AutoCAD 도면','Regular',7.5,SUB); north(W-30,H-30,False); end()
 
 # 9 material
 begin(); header(9,'Material Board')
